@@ -5,7 +5,6 @@ import java.util.List;
 public class Model {
 
     Vertex[] vertices;
-    Vertex[] normals;
     Surface[] surfaces;
 
     public Model(Vertex[] vertices, Surface[] surfaces) {

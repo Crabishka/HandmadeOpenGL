@@ -32,7 +32,7 @@
               <value value="0"/>
             </properties>
           </component>
-          <component id="1904c" class="javax.swing.JSlider" binding="sliderRotateY">
+          <component id="1904c" class="javax.swing.JSlider" binding="sliderRotateZ">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="1.0"/>
@@ -100,7 +100,7 @@
               <gridbag weightx="1.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Поворот по Y"/>
+              <text value="Поворот по Z"/>
             </properties>
           </component>
           <component id="687d2" class="javax.swing.JLabel">
@@ -156,10 +156,10 @@
               <gridbag weightx="1.0" weighty="0.0"/>
             </constraints>
             <properties>
-              <text value="Поворот по Z"/>
+              <text value="Поворот по Y"/>
             </properties>
           </component>
-          <component id="d6b2" class="javax.swing.JSlider" binding="sliderRotateZ">
+          <component id="d6b2" class="javax.swing.JSlider" binding="sliderRotateY">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="1.0"/>
@@ -178,7 +178,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="fdf62" class="javax.swing.JLabel" binding="LabelRotateY">
+          <component id="fdf62" class="javax.swing.JLabel" binding="LabelRotateZ">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="0.0"/>
@@ -187,7 +187,7 @@
               <text value="Label"/>
             </properties>
           </component>
-          <component id="216f9" class="javax.swing.JLabel" binding="LabelRotateZ">
+          <component id="216f9" class="javax.swing.JLabel" binding="LabelRotateY">
             <constraints>
               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag weightx="1.0" weighty="0.0"/>

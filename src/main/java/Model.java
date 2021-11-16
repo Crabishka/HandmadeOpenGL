@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Model {
@@ -27,6 +28,17 @@ public class Model {
 
 
     }
+
+    public void sort() {
+        Arrays.sort(surfaces, (o1, o2) -> {
+            double minY1 = Math.min(o1.vertices[0].y, Math.min(o1.vertices[2].y, o1.vertices[1].y));
+            double minY2 = Math.min(o2.vertices[0].y, Math.min(o2.vertices[2].y, o2.vertices[1].y));
+            if (minY1 > minY2) return -1;
+            else if (minY1 < minY2) return 1;
+            else return 0;
+        });
+    }
+
 
     public Vertex[] getVertices() {
         return vertices;

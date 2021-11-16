@@ -22,7 +22,23 @@ public class DrawPanel extends JPanel {
 
 
     DrawPanel() throws IOException, SurfaceException {
-        Model model = ObjectParsingService.readFromFile("src/main/resources/african_head.obj");
+        int n = 2;
+        Model model = null;
+        switch (n) {
+            case 1:{
+                model = ObjectParsingService.readFromFile("src/main/resources/car.obj");
+                break;
+            }
+            case 2:{
+                model = ObjectParsingService.readFromFile("src/main/resources/cube.obj");
+                break;
+            }
+            case 3:{
+                model = ObjectParsingService.readFromFile("src/main/resources/african_head.obj");
+                break;
+            }
+        }
+
         listOfModel.add(model);
         transformations.add(new Transformation(model));
         setSize(900, 900);
@@ -46,14 +62,17 @@ public class DrawPanel extends JPanel {
         g.setColor(Color.CYAN);
         g.fillRect(0, 0, 900, 900);
         setSize(900, 900);
-        drawModels(g, listOfModel);
         drawAxes(g);
+        drawModels(g, listOfModel);
+
     }
 
     public void drawModels(Graphics2D graphics2D, List<Model> models) {
         graphics2D.setStroke(new BasicStroke(1));
         graphics2D.setColor(Color.BLACK);
+        Vertex lightDir = new Vertex(0, 0, -1);
         for (Model model : models) {
+            //      model.sort();
             for (int i = 0; i < model.surfaces.length; i++) {
 
                 Surface surface = model.surfaces[i];
@@ -67,27 +86,53 @@ public class DrawPanel extends JPanel {
                 int y3 = (int) (offsetY - surface.vertices[2].getY() * height / 2);
 
                 Polygon polygon = new Polygon(new int[]{x1, x2, x3}, new int[]{y1, y2, y3}, 3);
-                Random random = new Random();
-                graphics2D.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-                graphics2D.fill(polygon);
-                graphics2D.drawPolygon(polygon);
+                Vertex n = vectorMultiply(vectorSub(surface.vertices[2], surface.vertices[0]), vectorSub(surface.vertices[1], surface.vertices[0]));
+                vectorNormalize(n);
+                double intensive = scalarMultiply(n, lightDir);
+
+//                Random random = new Random();
+//                graphics2D.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
+//                graphics2D.fill(polygon);
+//                graphics2D.drawPolygon(polygon);
+
+                if (intensive > -0.001) {
+                    graphics2D.setColor(new Color((int) (intensive * 255), (int) (intensive * 255), (int) (intensive * 255), 255));
+                    graphics2D.fill(polygon);
+                    graphics2D.drawPolygon(polygon);
+                }
+
+
             }
         }
     }
 
-    public Vertex vectorMultiply(Vertex a, Vertex b){
-        double tmpX = a.y * b.z - a.z * b.y;
-        double tmpY = -(a.x * b.z - a.z * b.x);
-        double tmpZ = a.z * b.y - a.y * b.x;
-        return new Vertex(tmpX,tmpY,tmpZ);
+    public Vertex vectorSub(Vertex a, Vertex b) {
+        return new Vertex(a.x - b.x, a.y - b.y, a.z - b.z);
     }
 
-    public double scalarMultiply(Vertex a, Vertex b){
+    public Vertex vectorMultiply(Vertex a, Vertex b) {
+        double tmpX = a.y * b.z - a.z * b.y;
+        double tmpY = -(a.x * b.z - a.z * b.x);
+        double tmpZ = a.x * b.y - a.y * b.x;
+        return new Vertex(tmpX, tmpY, tmpZ);
+    }
+
+    public void vectorNormalize(Vertex a) {
+        double length = Math.sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+        length = 1 / length;
+        a.setX(a.getX() * length);
+        a.setY(a.getY() * length);
+        a.setZ(a.getZ() * length);
+    }
+
+    public double scalarMultiply(Vertex a, Vertex b) {
         return a.x * b.x + a.y * b.y + a.z * b.z;
     }
 
     public void drawAxes(Graphics2D graphics2D) {
-
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.drawLine(0, height / 2, width, height / 2);
+        graphics2D.drawLine(width / 2, 0, width / 2, height);
     }
 
 

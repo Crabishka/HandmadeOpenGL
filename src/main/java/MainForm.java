@@ -14,16 +14,16 @@ public class MainForm extends JDialog {
     private JPanel ModelPane;
     private JPanel ButtonPane;
     private JSlider sliderRotateX;
-    private JSlider sliderRotateY;
+    private JSlider sliderRotateZ;
     private JSlider sliderScaling;
     private JSlider sliderMoveZ;
     private JSlider sliderMoveX;
     private JButton doButton;
     private JSlider sliderMoveY;
-    private JSlider sliderRotateZ;
+    private JSlider sliderRotateY;
     private JLabel LabelRotateX;
-    private JLabel LabelRotateY;
     private JLabel LabelRotateZ;
+    private JLabel LabelRotateY;
     private JLabel LabelScaling;
     private JLabel LabelMoveZ1;
     private JLabel LabelMoveX;
@@ -38,8 +38,8 @@ public class MainForm extends JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
         LabelRotateX.setText("0");
-        LabelRotateY.setText("0");
         LabelRotateZ.setText("0");
+        LabelRotateY.setText("0");
         LabelScaling.setText("1");
         LabelMoveZ1.setText("0");
         LabelMoveX.setText("0");
@@ -52,7 +52,7 @@ public class MainForm extends JDialog {
                 List<Transformation> transforms = drawPanel.getTransformations();
                 for (Transformation transformation : transforms) {
                     transformation.moveModel(sliderMoveX.getValue() * ratio, sliderMoveZ.getValue() * ratio, sliderMoveY.getValue() * ratio);
-                    transformation.rotateModel(sliderRotateX.getValue(), sliderRotateY.getValue(), sliderRotateZ.getValue());
+                    transformation.rotateModel(sliderRotateX.getValue(), sliderRotateZ.getValue(), sliderRotateY.getValue());
                     double scaling = (double) sliderScaling.getValue() / 10;
                     transformation.scaleModel(scaling, scaling, scaling);
                 }
@@ -67,17 +67,17 @@ public class MainForm extends JDialog {
             }
         });
 
-        sliderRotateY.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                LabelRotateY.setText(String.valueOf(sliderRotateY.getValue()));
-            }
-        });
-
         sliderRotateZ.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 LabelRotateZ.setText(String.valueOf(sliderRotateZ.getValue()));
+            }
+        });
+
+        sliderRotateY.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                LabelRotateY.setText(String.valueOf(sliderRotateY.getValue()));
             }
         });
 
@@ -86,7 +86,7 @@ public class MainForm extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Model model = new Model(ObjectParsingService.readFromFile("src/main/resources/african_head.obj"));
+                    Model model = new Model(ObjectParsingService.readFromFile("src/main/resources/cube.obj"));
                     drawPanel.listOfModel.add(model);
                     drawPanel.transformations.add(new Transformation(model));
                 } catch (IOException ioException) {
